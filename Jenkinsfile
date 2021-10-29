@@ -19,21 +19,11 @@ pipeline {
       		    cloud 'kubernetes'
                 defaultContainer 'jnlp'  
       		    label 'java8-pod'
-      		    yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: java8
-    # image: maven:3.3.9-jdk-8-alpine
-    image: openjdk:8-jdk-alpine
-    command: ['cat']
-    tty: true
-                  """
+      		    yamlFile 'gke/maven-pod.yaml'
 		    }       
 	    }
             steps {
-                container('java8') {
+                container('maven') {
                         // build
                         echo 'Running build automation'
 	    	            sh "./mvnw package"
