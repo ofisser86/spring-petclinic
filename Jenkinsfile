@@ -7,7 +7,7 @@ pipeline {
         PROD_CLUSTER = "${JENK_PROD}"
         BUILD_CONTEXT_BUCKET = "${JENK_BUCKET}"
         BUILD_CONTEXT = "build-context-${BUILD_ID}.tar.gz"
-        APP_NAME = "spring-petclinic-gke"
+        APP_NAME = "spring-petclinic"
         GCR_IMAGE = "gcr.io/${PROJECT_ID}/${APP_NAME}:${BUILD_ID}"
         APP_JAR = "${APP_NAME}.jar"
     }
@@ -27,7 +27,6 @@ pipeline {
                         // build
                         echo 'Running build automation'
                         sh "pwd"
-                        sh "ls -la"
 	    	            sh "./mvnw package"
 			            // bundle the generated artifact    
 		                sh "cp target/${APP_NAME}-*.jar $APP_JAR"
