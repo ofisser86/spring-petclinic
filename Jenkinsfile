@@ -63,7 +63,7 @@ pipeline {
 	    }
         stage("Deploy to prod") {
             // Production branch
-            when { branch 'master' }
+            when { branch 'main' }
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
