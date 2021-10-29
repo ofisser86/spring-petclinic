@@ -20,11 +20,15 @@ spec:
   selector:
     matchLabels:
       app: spring-petclinic
+      role: frontend
+      env: production
   replicas: 2
   template:
     metadata:
       labels:
         app: spring-petclinic
+        role: frontend
+        env: production
     spec:
       containers:
       - name: spring-petclinic
