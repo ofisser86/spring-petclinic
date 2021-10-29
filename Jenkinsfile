@@ -26,7 +26,10 @@ pipeline {
                 container('maven') {
                         // build
                         echo 'Running build automation'
-	    	            sh "./mvnw package"
+	    	            sh "mvn clean package"
+
+		                // run tests
+		                sh "mvn verify"
 			            // bundle the generated artifact    
 		                sh "cp target/${APP_NAME}-*.jar $APP_JAR"
 
