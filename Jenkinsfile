@@ -17,7 +17,7 @@ pipeline {
             agent {
     	    	kubernetes {
       		    cloud 'kubernetes'
-                defaultContainer 'jnlp'  
+                defaultContainer 'jenkinsci/jenkins-slave'  
       		    label 'java8-pod'
       		    yamlFile 'gke/maven-pod.yaml'
 		    }       
