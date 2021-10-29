@@ -16,8 +16,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: maven
-    image: maven:3.3.9-jdk-8-alpine
-    # image: openjdk:8-jdk-alpine
+  - name: java
+    image: openjdk:8-jdk-alpine
     command: ['cat']
     tty: true
