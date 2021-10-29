@@ -41,5 +41,24 @@ pipeline {
 		        }
 	        }
         }
+        stage("Publish Image (CREATE ARTIFACT)") {
+                agent {
+                    kubernetes {
+                    cloud 'kubernetes'
+                    label 'kaniko-pod'
+                    yamlFile 'gke/kaniko-pod.yaml'
+                    }
+                }
+            environment {
+                PATH = "/busybox:/kaniko:$PATH"
+            }
+            steps {
+                container(name: 'kaniko', shell: '/busybox/sh') {
+                sh '''#!/busybox/sh
+                /kaniko/executor -f `pwd`/gke/Dockerfile -c `pwd` --context="gs://${BUILD_CONTEXT_BUCKET}/${BUILD_CONTEXT}" --destination="${GCR_IMAGE}" --build-arg JAR_FILE="${APP_JAR}"
+                '''
+                }
+            }
+	    }
     }
 }
