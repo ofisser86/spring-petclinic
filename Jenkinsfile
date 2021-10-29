@@ -10,7 +10,7 @@ pipeline {
         APP_NAME = "spring-petclinic"
         GCR_IMAGE = "gcr.io/${PROJECT_ID}/${APP_NAME}:${BUILD_ID}"
         APP_JAR = "${APP_NAME}.jar"
-        FE_SVC_NAME = ${APP_NAME}-frontend
+        FE_SVC_NAME = "${APP_NAME}-frontend"
     }
 
     stages {
