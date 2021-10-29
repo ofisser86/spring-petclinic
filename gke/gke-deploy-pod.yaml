@@ -6,8 +6,3 @@ spec:
     image: gcr.io/cd-on-kubernetes-330307/maven-kubectl:latest
     command: ['cat']
     tty: true
-  - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
-    command:
-    - cat
-    tty: true

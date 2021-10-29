@@ -62,6 +62,8 @@ pipeline {
             }
 	    }
         stage("Deploy to prod") {
+            // Production branch
+            when { branch 'master' }
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
@@ -74,12 +76,7 @@ pipeline {
 		        sh "sed -i.bak s#IMAGE#${GCR_IMAGE}#g gke/app-deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', namespace:'production', projectId: env.PROJECT_ID, clusterName: env.PROD_CLUSTER, location: env.PROJECT_ZONE, manifestPattern: 'gke/app-service.yaml', credentialsId: env.JENK_INT_IT_CRED_ID, verifyDeployments: false])
                 step([$class: 'KubernetesEngineBuilder', namespace:'production', projectId: env.PROJECT_ID, clusterName: env.PROD_CLUSTER, location: env.PROJECT_ZONE, manifestPattern: 'gke/app-deployment.yaml', credentialsId: env.JENK_INT_IT_CRED_ID, verifyDeployments: true])
-                step(
-                    container('kubectl'){        
-                    echo 'To access site follow link bellow'
-                sh("echo http://`kubectl --namespace=production get service ${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
-                    })
-		    }
+            }
         }
 	}
     }
