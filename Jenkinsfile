@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
         environment {
         PROJECT_ZONE = "${JENK_INT_IT_ZONE}"
         PROJECT_ID = "${JENK_PROJECT_ID}"
@@ -34,7 +34,6 @@ spec:
 	    }
             steps {
                 container('java8') {
-                    dir("gke") {
                         // build
                         echo 'Running build automation'
 	    	            sh "./mvnw package"
@@ -48,7 +47,6 @@ spec:
                                credentialsId: env.JENK_INT_IT_CRED_ID,
                                bucket: "gs://${BUILD_CONTEXT_BUCKET}",
                                pattern: env.BUILD_CONTEXT])
-                    }
 		        }
 	        }
         }
