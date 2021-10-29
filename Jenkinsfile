@@ -1,7 +1,11 @@
 pipeline {
     agent any
         environment {
+<<<<<<< HEAD
         PROJECT_ZONE = "${JENK_INT_IT_ZONE}"
+=======
+        PROJECT_ZONE = "${JENK_PROJECT_ZONE}"
+>>>>>>> 5fb40f3a464ac8c71d86398254e529e8df13f2a0
         PROJECT_ID = "${JENK_PROJECT_ID}"
         PROD_CLUSTER = "${JENK_PROD}"
         BUILD_CONTEXT_BUCKET = "${JENK_BUCKET}"
