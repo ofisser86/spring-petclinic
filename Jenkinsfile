@@ -64,6 +64,7 @@ pipeline {
         stage("Deploy to prod") {
             // Production branch
             when { branch 'main' }
+            input {message "Should we continue?"}
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
