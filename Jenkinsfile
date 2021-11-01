@@ -64,7 +64,7 @@ pipeline {
         stage("Deploy to prod") {
             // Production branch
             when { branch 'main' }
-            input {message "Should we continue?"}
+            
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
@@ -72,6 +72,7 @@ pipeline {
                     yamlFile 'gke/gke-deploy-pod.yaml'
                     }
                 }
+                input {message "Should we continue?"}
 	        steps{
 		        container('gke-deploy') {
 		        sh "sed -i.bak s#IMAGE#${GCR_IMAGE}#g gke/app-deployment.yaml"
