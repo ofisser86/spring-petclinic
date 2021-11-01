@@ -15,7 +15,7 @@ pipeline {
     stages{
         stage("Deploy to QA") {
             // Production branch
-            when { branch 'main' }
+            when { branch 'QA' }
             
                 agent {
                     kubernetes {
@@ -35,4 +35,5 @@ pipeline {
             }
         }
 	}
+  }
 }
