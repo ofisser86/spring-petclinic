@@ -15,23 +15,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic
+  name: spring-petclinic-qa
 spec:
   selector:
     matchLabels:
-      app: spring-petclinic
+      app: spring-petclinic-qa
       role: frontend
-      env: production
+      env: qa
   replicas: 2
   template:
     metadata:
       labels:
-        app: spring-petclinic
+        app: spring-petclinic-qa
         role: frontend
-        env: production
+        env: qa
     spec:
       containers:
-      - name: spring-petclinic
+      - name: spring-petclinic-qa
         image: IMAGE
         ports:
         - containerPort: 8080
