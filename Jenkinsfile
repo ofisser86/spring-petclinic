@@ -63,8 +63,9 @@ pipeline {
 	    }
         stage("Deploy to prod") {
             // Production branch
-            when { branch 'main' }
-            
+                when { 
+                    branch 'main'
+                     }
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
@@ -74,8 +75,11 @@ pipeline {
                 }
                 
 	        steps{
+
+            
                 input 'Should we continue?'
                 milestone(1)
+                
 		        container('gke-deploy') {
 		        sh "sed -i.bak s#IMAGE#${GCR_IMAGE}#g gke/app-deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', namespace:'production', projectId: env.PROJECT_ID, clusterName: env.PROD_CLUSTER, location: env.PROJECT_ZONE, manifestPattern: 'gke/app-service.yaml', credentialsId: env.JENK_INT_IT_CRED_ID, verifyDeployments: false])
