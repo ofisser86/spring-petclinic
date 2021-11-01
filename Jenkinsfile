@@ -65,7 +65,7 @@ pipeline {
             // Production branch
             when { branch 'main' }
             input message: "Can proceed?"
-            milestone()
+            milestone(1)
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
