@@ -3,6 +3,6 @@ kind: Pod
 spec:
   containers:
   - name: gke-deploy
-    image: gcr.io/cd-on-kubernetes-330307/maven-kubectl:latest
+    image: gcr.io/cloud-builders/kubectl
     command: ['cat']
     tty: true
