@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
 
         environment {
         PROJECT_ZONE = "${JENK_INT_IT_ZONE}"
