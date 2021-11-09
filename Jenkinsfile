@@ -3,7 +3,7 @@ pipeline {
 
         environment {
         PROJECT_ZONE = "${JENK_INT_IT_ZONE}"
-        PROJECT_ID = "env.JENK_PROJECT_ID"
+        PROJECT_ID = "${env.JENK_PROJECT_ID}"
         PROD_CLUSTER = "${JENK_PROD}"
         BUILD_CONTEXT_BUCKET = "${JENK_BUCKET}"
         BUILD_CONTEXT = "build-context-${BUILD_ID}.tar.gz"
