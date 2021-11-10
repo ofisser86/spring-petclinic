@@ -1,9 +1,10 @@
-def images_lsit() {
 import groovy.json.JsonSlurperClassic
 import jenkins.*
 import jenkins.model.* 
 import hudson.*
 import hudson.model.*
+
+def images_lsit() {
 
 // get new auth token from Google Cloud for this session
 def auth_token
