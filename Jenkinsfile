@@ -85,11 +85,9 @@ pipeline {
       }
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
-          sh ''
-          '#!/busybox/sh/
-          kaniko/executor - f `pwd` /Dockerfile - c `pwd`--context = "gs://${BUILD_CONTEXT_BUCKET}/${BUILD_CONTEXT}"--destination = "${GCR_IMAGE}"--build - arg JAR_FILE = "${APP_JAR}"
-          ''
-          '
+            sh '''#!/busybox/sh
+            /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --context="gs://${BUILD_CONTEXT_BUCKET}/${BUILD_CONTEXT}" --destination="${GCR_IMAGE}" --build-arg JAR_FILE="${APP_JAR}"
+            '''
         }
       }
     }
