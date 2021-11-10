@@ -27,6 +27,12 @@ pipeline {
         }
           }
         stage("init"){
+            agent {
+    	    	kubernetes {
+      		    cloud 'kubernetes'
+                defaultContainer 'jnlp'  
+      		    		    }
+            }
             steps {
                 script {
                    gv = load "script.groovy"    
