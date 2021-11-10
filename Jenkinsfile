@@ -31,6 +31,8 @@ pipeline {
                 echo "==========="
                 echo env.BUILD_ID
                 echo "==========="
+                echo params.BUILD_ID
+                echo "==========="
                 echo env.GCR_IMAGE
 		        // container('gke-deploy') {
 		        // sh "sed -i.bak s#IMAGE#${GCR_IMAGE}#g gke/app-deployment.yaml"
