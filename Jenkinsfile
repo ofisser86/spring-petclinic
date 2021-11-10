@@ -1,4 +1,4 @@
-// def gv
+def gv
 pipeline {
     agent none
 
@@ -26,27 +26,25 @@ pipeline {
             checkout scm
         }
           }
-        // stage("init"){
-        //     agent {
-    	//     	kubernetes {
-      	// 	    cloud 'kubernetes'
-        //         defaultContainer 'jnlp'  
-      	// 	    		    }
-        //     }
-        //     steps {
-        //         script {
-        //            gv = load "script.groovy"    
-        //         }
-        //     }
+        stage("init"){
+            agent {
+    	    	kubernetes {
+      		    cloud 'kubernetes'
+                defaultContainer 'jnlp'  
+      		    		    }
+            }
+            steps {
+                script {
+                   gv = load "script.groovy"    
+                }
+            }
 
-        // }
+        }
 
         stage('Build and Test') {
             agent {
     	    	kubernetes {
       		    cloud 'kubernetes'
-                // defaultContainer 'jnlp'  
-      		    label 'java8-pod'
       		    yamlFile 'gke/maven-pod.yaml'
 		    }       
 	    }
