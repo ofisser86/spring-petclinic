@@ -14,6 +14,16 @@ pipeline {
     }
 
     stages {
+        stage('Checkout code') {
+            agent {
+    	    	kubernetes {
+      		    cloud 'kubernetes'
+                defaultContainer 'jnlp'  
+      		    		    }
+          steps {
+            checkout scm
+        }
+          }
         stage('Build and Test') {
             agent {
     	    	kubernetes {
@@ -28,7 +38,7 @@ pipeline {
                         // build
                         script {
                          echo 'Running build automation'
-                         echo 'Executing pipeline for branch ${BRANCH_NAME}'
+                         echo "Executing pipeline for branch ${env.BRANCH_NAME}"
                         }
                         sh "pwd"
 	    	            sh "./mvnw package"
