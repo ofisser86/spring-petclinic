@@ -20,6 +20,7 @@ pipeline {
       		    cloud 'kubernetes'
                 defaultContainer 'jnlp'  
       		    		    }
+            }
           steps {
             checkout scm
         }
