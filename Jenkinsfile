@@ -12,7 +12,7 @@ pipeline {
         FE_SVC_NAME = "${APP_NAME}-frontend"
     }
         parameters{
-            string(name: "BUILD_ID", defaultValue: ${BUILD_ID}, description:"Enter Build number")
+            string(name: "BUILD_ID", defaultValue: "${BUILD_ID}", description:"Enter Build number")
         }
 
     stages{
