@@ -26,7 +26,10 @@ pipeline {
             steps {
                 container('java') {
                         // build
-                        echo 'Running build automation'
+                        script {
+                         echo 'Running build automation'
+                         echo 'Executing pipeline for branch $BRANCH_NAME'
+                        }
                         sh "pwd"
 	    	            sh "./mvnw package"
 			            // bundle the generated artifact    
