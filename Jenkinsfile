@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent none
 
@@ -25,6 +26,15 @@ pipeline {
             checkout scm
         }
           }
+        stage("init"){
+            steps {
+                script {
+                   gv = load "script.groovy"    
+                }
+            }
+
+        }
+
         stage('Build and Test') {
             agent {
     	    	kubernetes {
@@ -40,6 +50,7 @@ pipeline {
                         script {
                          echo 'Running build automation'
                          echo "Executing pipeline for branch ${env.BRANCH_NAME}"
+                         gv.images_lsit()
                         }
                         sh "pwd"
 	    	            sh "./mvnw package"
@@ -77,6 +88,9 @@ pipeline {
 	    }
         stage("Deploy to QA") {
             // QA branch
+            when {
+                branch 'QA'
+            }
             agent {
                     kubernetes {
                     cloud 'kubernetes'
