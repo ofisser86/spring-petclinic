@@ -1,25 +1,9 @@
 import groovy.json.JsonSlurperClassic
-import jenkins.*
-import jenkins.model.* 
-import hudson.*
-import hudson.model.*
 
 def images_lsit() {
 
 // get new auth token from Google Cloud for this session
-def auth_token
-def jenkinsCredentials = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-        com.cloudbees.plugins.credentials.Credentials.class,
-        Jenkins.instance,
-        null,
-        null
-);
-  
-for (creds in jenkinsCredentials) {
-    if(creds.id == "gcloud-access-token"){
-    auth_token = (creds.secret)
-    }
-}
+def auth_token = "gcloud auth print-access-token".execute().text.replaceAll("\r\n", "")
 
 // get specific image tags as JSON with all information about each tag, including creation timestamp
 def url = "curl -s -u _token:${auth_token} https://gcr.io/v2/pet-clinic-331616/spring-petclinic/tags/list"

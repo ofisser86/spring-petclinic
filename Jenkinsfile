@@ -1,4 +1,4 @@
-def gv
+// def gv
 pipeline {
     agent none
 
@@ -26,20 +26,20 @@ pipeline {
             checkout scm
         }
           }
-        stage("init"){
-            agent {
-    	    	kubernetes {
-      		    cloud 'kubernetes'
-                defaultContainer 'jnlp'  
-      		    		    }
-            }
-            steps {
-                script {
-                   gv = load "script.groovy"    
-                }
-            }
+        // stage("init"){
+        //     agent {
+    	//     	kubernetes {
+      	// 	    cloud 'kubernetes'
+        //         defaultContainer 'jnlp'  
+      	// 	    		    }
+        //     }
+        //     steps {
+        //         script {
+        //            gv = load "script.groovy"    
+        //         }
+        //     }
 
-        }
+        // }
 
         stage('Build and Test') {
             agent {
@@ -56,7 +56,7 @@ pipeline {
                         script {
                          echo 'Running build automation'
                          echo "Executing pipeline for branch ${env.BRANCH_NAME}"
-                         gv.images_lsit()
+                         // gv.images_lsit()
                         }
                         sh "pwd"
 	    	            sh "./mvnw package"
