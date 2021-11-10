@@ -42,7 +42,7 @@ pipeline {
 		        }
 	        }
         }
-        stage("Publish Image (CREATE ARTIFACT)") {
+        stage("Publish Image") {
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
@@ -61,8 +61,32 @@ pipeline {
                 }
             }
 	    }
+        stage("Deploy to QA") {
+            // QA branch
+            agent {
+                    kubernetes {
+                    cloud 'kubernetes'
+                    label 'gke-deploy'
+                    yamlFile 'gke/gke-deploy-pod.yaml'
+                    }
+                }
+                
+	        steps{
+
+		        container('gke-deploy') {
+		        sh "sed -i.bak s#IMAGE#${GCR_IMAGE}#g gke/app-deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', namespace:'qa', projectId: env.PROJECT_ID, clusterName: env.PROD_CLUSTER, location: env.PROJECT_ZONE, manifestPattern: 'gke/app-service.yaml', credentialsId: env.JENK_INT_IT_CRED_ID, verifyDeployments: false])
+                step([$class: 'KubernetesEngineBuilder', namespace:'qa', projectId: env.PROJECT_ID, clusterName: env.PROD_CLUSTER, location: env.PROJECT_ZONE, manifestPattern: 'gke/app-deployment.yaml', credentialsId: env.JENK_INT_IT_CRED_ID, verifyDeployments: true])
+            }
+        }
+	}
+
+
         stage("Deploy to prod") {
             // Production branch
+            when {
+                branch 'main'
+            }
                 agent {
                     kubernetes {
                     cloud 'kubernetes'
