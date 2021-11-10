@@ -75,9 +75,6 @@ pipeline {
 	    }
         stage("Deploy to QA") {
             // QA branch
-            when {
-                branch 'QA'
-            }
             agent {
                     kubernetes {
                     cloud 'kubernetes'
