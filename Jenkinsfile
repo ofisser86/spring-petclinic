@@ -13,6 +13,10 @@ pipeline {
     APP_JAR = "${APP_NAME}.jar"
     FE_SVC_NAME = "${APP_NAME}-frontend"
   }
+
+    parameters {
+            string(name: "BUILD_ID", defaultValue: "latest", description: "Enter Build ID")
+               }
   stages {
     stage('Checkout code') {
       agent {
@@ -94,14 +98,6 @@ pipeline {
       // QA branch
       when {
         branch 'QA'
-      }
-
-      input {
-            message "Enter Build number to deploy to QA env"
-            ok "Done"
-            parameters {
-               string(name: "BUILD_ID", defaultValue: "", description: "Enter Build ID")
-            }
       }
       agent {
         kubernetes {
