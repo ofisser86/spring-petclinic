@@ -1,4 +1,4 @@
-def gv
+// def gv
 pipeline {
   agent none
 
@@ -14,9 +14,9 @@ pipeline {
     FE_SVC_NAME = "${APP_NAME}-frontend"
   }
 
-//   params {
-//         string(name: "BUILD_ID", defaultValue: "", description: "Enter Build ID")
-//   }
+  parameters {
+        string(name: "BUILD_ID", defaultValue: "", description: "Enter Build ID")
+  }
 
   stages {
     stage('Checkout code') {
@@ -30,20 +30,20 @@ pipeline {
         checkout scm
       }
     }
-    stage("init") {
-      agent {
-        kubernetes {
-          cloud 'kubernetes'
-          defaultContainer 'jnlp'
-        }
-      }
-      steps {
-        script {
-          gv = load "script.groovy"
-        }
-      }
+    // stage("init") {
+    //   agent {
+    //     kubernetes {
+    //       cloud 'kubernetes'
+    //       defaultContainer 'jnlp'
+    //     }
+    //   }
+    //   steps {
+    //     script {
+    //       gv = load "script.groovy"
+    //     }
+    //   }
 
-    }
+    // }
 
     stage('Build and Test') {
       agent {
@@ -58,7 +58,7 @@ pipeline {
           script {
             echo 'Running build automation'
             echo "Executing pipeline for branch ${env.BRANCH_NAME}"
-            gv.images_lsit()
+            // gv.images_lsit()
           }
           sh "pwd"
           sh "./mvnw package"
