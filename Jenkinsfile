@@ -7,17 +7,12 @@ pipeline {
     PROJECT_ID = "${JENK_PROJECT_ID}"
     PROD_CLUSTER = "${JENK_PROD}"
     BUILD_CONTEXT_BUCKET = "${JENK_BUCKET}"
-    BUILD_CONTEXT = "build-context-${params.BUILD_ID}.tar.gz"
+    BUILD_CONTEXT = "build-context-${BUILD_ID}.tar.gz"
     APP_NAME = "spring-petclinic"
-    GCR_IMAGE = "gcr.io/${PROJECT_ID}/${APP_NAME}:${params.BUILD_ID}"
+    GCR_IMAGE = "gcr.io/${PROJECT_ID}/${APP_NAME}:${BUILD_ID}"
     APP_JAR = "${APP_NAME}.jar"
     FE_SVC_NAME = "${APP_NAME}-frontend"
   }
-
-  parameters {
-        string(name: "BUILD_ID", defaultValue: "", description: "Enter Build ID")
-  }
-
   stages {
     stage('Checkout code') {
       agent {
@@ -99,6 +94,14 @@ pipeline {
       // QA branch
       when {
         branch 'QA'
+      }
+
+      input {
+            message "Enter Build number to deploy to QA env"
+            ok "Done"
+            parameters {
+               string(name: "BUILD_ID", defaultValue: "", description: "Enter Build ID")
+            }
       }
       agent {
         kubernetes {
