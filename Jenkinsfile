@@ -7,12 +7,16 @@ pipeline {
     PROJECT_ID = "${JENK_PROJECT_ID}"
     PROD_CLUSTER = "${JENK_PROD}"
     BUILD_CONTEXT_BUCKET = "${JENK_BUCKET}"
-    BUILD_CONTEXT = "build-context-${BUILD_ID}.tar.gz"
+    BUILD_CONTEXT = "build-context-${params.BUILD_ID}.tar.gz"
     APP_NAME = "spring-petclinic"
-    GCR_IMAGE = "gcr.io/${PROJECT_ID}/${APP_NAME}:${BUILD_ID}"
+    GCR_IMAGE = "gcr.io/${PROJECT_ID}/${APP_NAME}:${params.BUILD_ID}"
     APP_JAR = "${APP_NAME}.jar"
     FE_SVC_NAME = "${APP_NAME}-frontend"
   }
+
+//   params {
+//         string(name: "BUILD_ID", defaultValue: "", description: "Enter Build ID")
+//   }
 
   stages {
     stage('Checkout code') {
@@ -54,7 +58,7 @@ pipeline {
           script {
             echo 'Running build automation'
             echo "Executing pipeline for branch ${env.BRANCH_NAME}"
-            // gv.images_lsit()
+            gv.images_lsit()
           }
           sh "pwd"
           sh "./mvnw package"
