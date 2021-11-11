@@ -19,19 +19,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: spring-petclinic-qa
+      app: spring-petclinic
       role: frontend
       env: qa
   replicas: 2
   template:
     metadata:
       labels:
-        app: spring-petclinic-qa
+        app: spring-petclinic
         role: frontend
         env: qa
     spec:
       containers:
-      - name: spring-petclinic-qa
+      - name: spring-petclinic
         image: IMAGE
         ports:
         - containerPort: 8080
