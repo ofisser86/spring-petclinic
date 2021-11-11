@@ -15,7 +15,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-petclinic-prod
+  name: spring-petclinic
 spec:
   selector:
     matchLabels:
