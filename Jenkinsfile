@@ -16,6 +16,17 @@ pipeline {
         }
 
     stages{
+        stage('Checkout code') {
+            agent {
+    	    	kubernetes {
+      		    cloud 'kubernetes'
+                defaultContainer 'jnlp'  
+      		    		    }
+            }
+          steps {
+            checkout scm
+        }
+          }
         stage("Deploy to QA") {
             // QA branch
         
