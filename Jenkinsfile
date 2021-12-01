@@ -11,9 +11,6 @@ pipeline {
         APP_JAR = "${APP_NAME}.jar"
         FE_SVC_NAME = "${APP_NAME}-frontend"
     }
-        parameters{
-            string(name: "BUILD_ID", defaultValue: "${BUILD_ID}", description:"Enter Build number")
-        }
 
     stages{
         stage('Checkout code') {
@@ -36,6 +33,17 @@ pipeline {
                     yamlFile 'gke/gke-deploy-pod.yaml'
                     }
                 }
+steps{ 
+input{
+    message: "Choose BUILD ID"
+    ok: "Done"
+    parameters{
+            string(name: "BUILD_ID", defaultValue: "latest", description:"Enter Build number")
+        }
+}
+
+}
+
                 
 	        steps{
                 echo "Deploy to qa environment the build with number ->> ${BUILD_ID}"
