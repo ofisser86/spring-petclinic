@@ -33,18 +33,13 @@ pipeline {
                     yamlFile 'gke/gke-deploy-pod.yaml'
                     }
                 }
-steps{ 
-input{
-    message: "Choose BUILD ID"
-    ok: "Done"
-    parameters{
-            string(name: "BUILD_ID", defaultValue: "latest", description:"Enter Build number")
-        }
-}
-
-}
-
-                
+            input {
+                    message "Select BUILD ID to deploy"
+                    ok "Done"
+                    parameters {
+                       string(name: "BUILD_ID", defaultValue: "latest", description:"Enter Build number")
+                              }
+                  }
 	        steps{
                 echo "Deploy to qa environment the build with number ->> ${BUILD_ID}"
 		        container('gke-deploy') {
