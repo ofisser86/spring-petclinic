@@ -15,7 +15,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: spring-petclinic-sv
+  name: spring-petclinic-frontend
 spec:
   type: LoadBalancer
   ports:
